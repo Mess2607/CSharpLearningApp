@@ -2,11 +2,11 @@
 {
     class Calculator
     {
-        public static double DoOperation(double num1, double num2, string op)
+        public static double DoOperation(double num1, double num2, string selection)
         {
-            double result = double.NaN; //checking if the provided input could result in an error
+            double result = double.NaN;
 
-            switch (op)
+            switch (selection)
             {
                 case "+":
                     result = num1 + num2;
@@ -35,10 +35,10 @@
                 case "!":
                     result = Math.Sqrt(num1);
                     break;
-                default: //check for invalid input
+                default: //check for invalid input                    
                     break;
             }
-            return result;
+            return result;            
         }
     }
     public class Menu
@@ -46,6 +46,8 @@
         public static void Calc()
         {
             bool endApp = false;
+
+            Console.Clear();
 
             Console.WriteLine("--------------------");
             Console.WriteLine("Calculator Program");
@@ -64,10 +66,9 @@
                 double cleanNum1 = 0;
                 while (!double.TryParse(numInput1, out cleanNum1)) //checking for invalid input
                 {
-                    Console.Write("This is not a valid input, dummy. Please enter new value: ");
+                    Console.Write("This is not a valid input, dummy. Please enter a new value: ");
                     numInput1 = Console.ReadLine();
                 }
-
 
                 Console.Write("Input the second number followed by Enter:");
                 numInput2 = Console.ReadLine();
@@ -75,7 +76,7 @@
                 double cleanNum2 = 0;
                 while (!double.TryParse(numInput2, out cleanNum2)) //checking for invalid input
                 {
-                    Console.Write("This is not a valid input, dummy. Please enter new value: ");
+                    Console.Write("This is not a valid input, dummy. Please enter a new value: ");
                     numInput2 = Console.ReadLine();
                 }
 
@@ -90,17 +91,20 @@
                 Console.WriteLine("\t! : Square root of the 1st number");
                 Console.Write("Please choose an option followed by Enter:");
 
-                string op = Console.ReadLine();
+                string selection = Console.ReadLine();
 
                 try
                 {
-                    result = Calculator.DoOperation(cleanNum1, cleanNum2, op);
+                    result = Calculator.DoOperation(cleanNum1, cleanNum2, selection);
                     if (double.IsNaN(result))
                     {
-                        Console.WriteLine("Nope! This won't end well!");
+                        Console.Clear();
+                        Console.WriteLine("Nope! The input was incorrect. Please start a new equation.");
+                        continue;
                     }
-                    else Console.WriteLine("Voila! Your result: " + result);
+                    else Console.WriteLine("Voila! Your result: " + result);                                        
                 }
+
                 catch (Exception error)
                 {
                     Console.WriteLine("Whoops! Something went wrong! - Details: " + error.Message);
@@ -108,8 +112,9 @@
 
                 Console.WriteLine("Would you like to perform another operation? (press Y followed by Enter to continue): "); //check whether the user wants to continue
                 if (Console.ReadLine().ToUpper() != "Y") endApp = true;
+                else Console.Clear();
             }
-
+                        
             Console.WriteLine("Okay then, bye!");
             return;
         }
