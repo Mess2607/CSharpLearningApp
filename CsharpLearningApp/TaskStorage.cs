@@ -20,20 +20,21 @@
                 "Task 5 - blank",
                 "--------------------");
 
-            Console.Clear();
+            //Console.Clear();
 
-            Console.WriteLine(TaskStorageInfo);
+            //Console.WriteLine(TaskStorageInfo);
 
             while (!endApp)
             {
-                string numInput1 = "";
-
+                string numInput1 = "";                
+                Console.WriteLine(TaskStorageInfo);
                 Console.Write("Please input number of the task you want to display:");
                 numInput1 = Console.ReadLine();
 
                 int selection = 0;
                 if (!int.TryParse(numInput1, out selection))
                 {
+                    Console.Clear();
                     Console.WriteLine("This is not a valid number. Please enter new value: ");
                     continue;
                 }
@@ -87,12 +88,14 @@
                         Console.WriteLine(taskInfo5);
                         break;
                     default:
+                        Console.WriteLine("This is not a correct value.");
                         break;
                 }
 
                 Console.WriteLine("Press Enter to continue or input Q followed by Enter to exit."); //check whether the user wants to continue
                 if (Console.ReadLine().ToUpper() == "Q")
-                    endApp = true;                                
+                    endApp = true;
+                else Console.Clear();
             }
 
             Console.Clear();
